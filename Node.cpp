@@ -31,10 +31,3 @@ void Node<T>::addChild(Node* childNode)
 {
 	childs.push_back(childNode);
 }
-
-template<typename T>
-std::ostream& operator<<(std::ostream& out, const Node<T>& node)
-{
-	out << node.data << std::endl;
-	return out;
-}

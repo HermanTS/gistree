@@ -20,8 +20,12 @@ public:
 
 	void addChild(Node* childNode);
 
-	template<typename T>
-	friend std::ostream& operator<<(std::ostream& out, const Node<T>& node);
+	friend std::ostream& operator<<(std::ostream& out, const Node<T>& node)
+	{
+		out << node.data << std::endl;
+		return out;
+	}
+
 private:
 	T* data;
 	Node* parent;
