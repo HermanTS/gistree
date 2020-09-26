@@ -11,25 +11,32 @@
 #include <vector>
 #include <iostream>
 
-template<typename T>
+enum node_types
+{
+	INT,
+	FLOAT,
+	STRING,
+	MAX_TYPE,
+};
+
 class Node
 {
 public:
-	Node(Node* parent ,T& data);
+	Node(Node* parent , void* data, node_types type);
 	~Node();
+
 
 	void addChild(Node* childNode);
 
-	friend std::ostream& operator<<(std::ostream& out, const Node<T>& node)
-	{
-		out << node.data << std::endl;
-		return out;
-	}
+	friend std::ostream& operator<<(std::ostream& out, const Node& node);
 
 private:
-	T* data;
 	Node* parent;
 	std::vector<Node*> childs;
+
+	void* data;
+	node_types type;
+
 };
 
 #endif // !__NODE_H_

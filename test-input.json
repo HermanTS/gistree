@@ -1,29 +1,29 @@
 {
-  int: 8 
+  "int": 8,
   {
-     string : bar 
+    "string": "bar",
     {
-       float : 2.015 
+      "float": 2000.015,
       {
-         int : 9 
+        "int": 90000
       }
-    }
+    },
     {
-       int : 2015 
-    }
+      "int": 2015
+    },
     {
-       string : 2015 
+      "string": 2015
     }
-  }
+  },
   {
-     string : baz 
+    "string": "baz",
     {
-       string : foo 
-    }
+      "string": "foo"
+    },
     {
-       float : 6.28318 
+      "float": 6.28318,
       {
-         string : hello 
+        "string": "hello"
       }
     }
   }

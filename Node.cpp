@@ -7,16 +7,26 @@
 
 #include "Node.h"
 
-
-template<typename T>
-Node<T>::Node(Node* parent, T& data):
-parent(parent)
+Node::Node(Node* parent, void* data, node_types type) :
+parent(parent), type(type)
 {
-	this->data = new T(data);
+	switch (type)
+	{
+	case INT:
+		this->data = new int(*static_cast<int*>(data));
+		break;
+	case FLOAT:
+		this->data = new float(*static_cast<float*>(data));
+		break;
+	case STRING:
+		this->data = new std::string(*static_cast<std::string*>(data));
+		break;
+	default:
+		break;
+	}
 }
 
-template<typename T>
-Node<T>::~Node()
+Node::~Node()
 {
 	delete data;
 
@@ -26,8 +36,29 @@ Node<T>::~Node()
 	}
 }
 
-template<typename T>
-void Node<T>::addChild(Node* childNode)
+
+void Node::addChild(Node* childNode)
 {
 	childs.push_back(childNode);
+}
+
+std::ostream& operator<<(std::ostream& out, const Node& node)
+{
+		
+	switch (node.type)
+	{
+	case INT:
+		out << (*static_cast<int*>(node.data));
+		break;
+	case FLOAT:
+		out << (*static_cast<float*>(node.data));
+		break;
+	case STRING:
+		out << (*static_cast<std::string*>(node.data));
+		break;
+	default:
+		break;
+	}
+	
+	return out;
 }
