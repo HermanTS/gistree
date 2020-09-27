@@ -27,6 +27,7 @@ public:
 
 
 	void addChild(Node* childNode);
+	const std::vector<Node*>& getChilds();
 
 	friend std::ostream& operator<<(std::ostream& out, const Node& node);
 

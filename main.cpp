@@ -61,6 +61,8 @@ int main(int argc, char** argv)
 
 	Tree tree(inputFileName->c_str());
 
+	std::cout << tree;
+
 	return rez;
 }
 

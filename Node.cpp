@@ -42,6 +42,11 @@ void Node::addChild(Node* childNode)
 	childs.push_back(childNode);
 }
 
+const std::vector<Node*>& Node::getChilds()
+{
+	return childs;
+}
+
 std::ostream& operator<<(std::ostream& out, const Node& node)
 {
 		
@@ -57,8 +62,9 @@ std::ostream& operator<<(std::ostream& out, const Node& node)
 		out << (*static_cast<std::string*>(node.data));
 		break;
 	default:
+		return out;
 		break;
 	}
-	
+				
 	return out;
 }
