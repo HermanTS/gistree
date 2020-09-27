@@ -47,6 +47,26 @@ const std::vector<Node*>& Node::getChilds()
 	return childs;
 }
 
+const char* Node::getTypeStr()
+{
+	switch (type)
+	{
+	case INT:
+		return "int";
+		break;
+	case FLOAT:
+		return "float";
+		break;
+	case STRING:
+		return "string";
+		break;
+	case MAX_TYPE:
+	default:
+		return "eror type";
+		break;
+	}
+}
+
 std::ostream& operator<<(std::ostream& out, const Node& node)
 {
 		

@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <cstring>
+#include <fstream>
 
 #include "Tree.h"
 
@@ -17,7 +18,8 @@ enum
 	NONE
 };
 
-const std::string USAGE = "usage: \ngistree -i filename -o filename\n";
+const std::string USAGE = "usage: \n"
+							"gistree -i filename -o filename\n";
 
 int parceArg(char* argv)
 {
@@ -31,7 +33,6 @@ int parceArg(char* argv)
 
 int main(int argc, char** argv) 
 {
-	int rez = 0;
 
 	std::string* inputFileName = nullptr;
 	std::string* outFileName = nullptr;
@@ -63,6 +64,18 @@ int main(int argc, char** argv)
 
 	std::cout << tree;
 
-	return rez;
+	std::fstream file;
+	file.open(outFileName->c_str(), std::fstream::out);
+	if (!file.is_open())
+	{
+		std::cout << "cant create out file" << std::endl;
+		return -1;
+	}
+
+	file << tree;
+
+	file.close();
+
+	return 0;
 }
 

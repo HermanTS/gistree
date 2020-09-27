@@ -1,4 +1,4 @@
-
+﻿
 #include <fstream>
 #include <sstream>
 #include <cstring>
@@ -15,7 +15,7 @@ const char DATA_DELIM = ':';
 const char* TYPE_POSSIBLE_SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 "abcdefghijklmnopqrstuvwxyz";
 const char* VALUE_POSSIBLE_SYMBOLS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-"abcdefghijklmnopqrstuvwxyz""1234567890";
+"abcdefghijklmnopqrstuvwxyz""1234567890.";
 
 using namespace std;
 
@@ -119,6 +119,49 @@ Node* Tree::CreateTree(Node* parent, std::string* buff)
 	return node;
 }
 
+void Tree::Serializetion(std::ostream* out, Node* root)
+{
+	auto& outstream = *out;
+	static int tabs_counter = 0;
+	tabs_counter++;
+
+	string spases;
+
+	for (int i = 1; i < tabs_counter; i++)
+		spases += "    ";
+
+	outstream << spases << "{" << endl;
+
+
+	outstream << spases <<"\"" << root->getTypeStr() << "\" : \"" << *root << "\"" << endl;
+
+	for (auto it : root->getChilds())
+		Serializetion(out, it);
+
+	outstream << spases << "}" << endl;
+	tabs_counter--;
+}
+
+void Tree::Print(std::ostream* out, Node* root)
+{
+	auto& outstream = *out;
+	static int tabs_counter = 0;
+	tabs_counter++;
+
+	string spases;
+
+	for (int i = 1; i < tabs_counter; i++)
+		spases += (tabs_counter - i) > 1? "|" : "└";
+
+
+	outstream << spases << *root <<  endl;
+
+	for (auto it : root->getChilds())
+		Print(out, it);
+
+	tabs_counter--;
+}
+
 Tree::Tree(const char* filename)
 {
 	std::ifstream inputFile(filename, std::ifstream::in);
@@ -131,21 +174,18 @@ Tree::Tree(const char* filename)
 	root = CreateTree(nullptr, &buff);
 }
 
+
+
 std::ostream& operator<<(std::ostream& out, const Tree& tree)
 {
-	out << *tree.root << endl;
+	tree.Print(&out, tree.root);
 	
-	for (auto it : tree.root->getChilds())
-	{
-		out << *it << endl;
-	}
-
 	return out;
 }
 
 std::fstream& operator<<(std::fstream& file, const Tree& tree)
 {
-	//throw gcnew System::NotImplementedException();
+	tree.Serializetion(&file, tree.root);
 	
 	return file;
 }
