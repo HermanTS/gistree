@@ -151,7 +151,7 @@ void Tree::Print(std::ostream* out, Node* root)
 	string spases;
 
 	for (int i = 1; i < tabs_counter; i++)
-		spases += (tabs_counter - i) > 1? "|" : "└";
+		spases += (tabs_counter - i) > 1? "|" : "└ ";
 
 
 	outstream << spases << *root <<  endl;
